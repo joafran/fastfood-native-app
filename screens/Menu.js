@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Text } from 'react-native';
+import FirebaseContext from '../contexts/firebase/firebaseContext';
+
 
 const Menu = () => {
-    return ( 
-        <Text>Menu</Text>
+    
+    const { menu, getMenu } = useContext(FirebaseContext);
+    
+    useEffect(() => {
+        getMenu();
+        console.log(menu)
+    }, [])
+
+    return (
+        <>
+            <Text>Menu</Text>
+        </>
      );
 }
  
