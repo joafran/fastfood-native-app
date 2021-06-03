@@ -3,6 +3,7 @@ import FirebaseContext from './firebaseContext';
 import firebaseReducer from './firebaseReducer';
 import firebase from '../../firebase';
 import { GET_MENU_SUCCESS } from '../../types';
+import _ from 'lodash';
 
 const FirebaseState = ({children}) => {
     
@@ -24,6 +25,8 @@ const FirebaseState = ({children}) => {
                     ...doc.data()
                 }
             });
+
+            meals = _.sortBy(meals, 'category');
 
             dispatch({
                 type: GET_MENU_SUCCESS,

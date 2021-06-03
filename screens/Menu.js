@@ -11,17 +11,38 @@ const Menu = () => {
     useEffect(() => {
         getMenu();
         console.log(menu)
-    }, [])
+    }, []);
+
+    const groupByCategory = (category, index) => {
+        if(index > 0 ) {
+            const prevCategory = menu[index - 1].category;
+            if(prevCategory !== category) {
+                return (
+                    <View>
+                            <Text style={styles.category}>{category.toUpperCase()}</Text>
+                    </View>
+                )
+            }
+        } else {
+            return (
+                <View>
+                        <Text style={styles.category}>{category.toUpperCase()}</Text>
+                </View>
+            )
+        }
+
+    }
 
     return (
         <>
             <ScrollView>
                 {(menu.length) ? (
-                    menu.map( option => {
+                    menu.map( (option, idx) => {
                         const { name, description, category, image, id, price } = option;
                     
                     return (
                         <View key={id} style={[globalStyles.content, styles.content]}>
+                            {groupByCategory(category, idx)}
                             <List.Item
                                 title={name}
                                 titleStyle={styles.title}
@@ -58,6 +79,12 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 18
+    },
+    category: {
+        fontWeight: '700',
+        backgroundColor: '#dc143c',
+        padding: 8,
+        color: '#fff'
     },
     price: {
         fontSize: 20,
