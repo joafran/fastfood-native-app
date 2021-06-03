@@ -1,16 +1,21 @@
 import React, { useContext, useEffect } from 'react';
-import FirebaseContext from '../contexts/firebase/firebaseContext';
-import { List, Text } from 'react-native-paper';
+import { ActivityIndicator, List, Text } from 'react-native-paper';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import globalStyles from '../styles/global';
 
+import { useNavigation } from '@react-navigation/native'
+
+import FirebaseContext from '../contexts/firebase/firebaseContext';
+import OrderContext from '../contexts/orders/orderContext';
+
+
 const Menu = () => {
-    
+    const navigation = useNavigation();
     const { menu, getMenu } = useContext(FirebaseContext);
+    const { selectMeal } = useContext(OrderContext);
     
     useEffect(() => {
         getMenu();
-        console.log(menu)
     }, []);
 
     const groupByCategory = (category, index) => {
@@ -19,14 +24,14 @@ const Menu = () => {
             if(prevCategory !== category) {
                 return (
                     <View>
-                            <Text style={styles.category}>{category.toUpperCase()}</Text>
+                            <Text style={styles.category}>{category}</Text>
                     </View>
                 )
             }
         } else {
             return (
                 <View>
-                        <Text style={styles.category}>{category.toUpperCase()}</Text>
+                        <Text style={styles.category}>{category}</Text>
                 </View>
             )
         }
@@ -44,6 +49,10 @@ const Menu = () => {
                         <View key={id} style={[globalStyles.content, styles.content]}>
                             {groupByCategory(category, idx)}
                             <List.Item
+                                onPress={() => {
+                                    selectMeal(option);
+                                    navigation.navigate('MealDetail')
+                                }}
                                 title={name}
                                 titleStyle={styles.title}
                                 description={description}
@@ -55,7 +64,7 @@ const Menu = () => {
 
                     );
                     })
-                    ) : <Text>There's no meals available</Text> 
+                    ) : <ActivityIndicator></ActivityIndicator> 
                 }
             </ScrollView>
         </>
@@ -82,9 +91,10 @@ const styles = StyleSheet.create({
     },
     category: {
         fontWeight: '700',
-        backgroundColor: '#dc143c',
+        backgroundColor: '#DC143C',
         padding: 8,
-        color: '#fff'
+        color: '#FFF',
+        textTransform: 'uppercase'
     },
     price: {
         fontSize: 20,
