@@ -64,7 +64,7 @@ const Menu = () => {
 
                     );
                     })
-                    ) : <ActivityIndicator></ActivityIndicator> 
+                    ) : <ActivityIndicator color="#dc143c" size="large"></ActivityIndicator> 
                 }
             </ScrollView>
         </>

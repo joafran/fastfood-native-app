@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { SELECT_MEAL } from '../../types';
+import { CONFIRM_ORDER, SELECT_MEAL } from '../../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
 
@@ -17,6 +17,13 @@ const OrderState = ({children}) => {
             type: SELECT_MEAL,
             payload: meal
         })
+    };
+
+    const confirmOrder = (meal) => {
+        dispatch({
+            type: CONFIRM_ORDER,
+            payload: meal
+        })
     }
 
     return (
@@ -24,7 +31,8 @@ const OrderState = ({children}) => {
         value={{
             orders: state.orders,
             meal: state.meal,
-            selectMeal
+            selectMeal,
+            confirmOrder
         }}
         >
             {children}
