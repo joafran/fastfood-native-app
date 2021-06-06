@@ -96,8 +96,8 @@ const OrderSummary = () => {
                 ) 
             }
             </ScrollView>
-            <Text style={styles.banner}>Total to pay: ${total}</Text>
-            <View >
+            <View>
+                <Text style={styles.banner}>Total to pay: ${total}</Text>
                 <Button 
                     style={[globalStyles.button, {width: '100%', padding: 5, borderRadius: 0}]} 
                     mode="contained"

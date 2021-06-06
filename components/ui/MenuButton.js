@@ -8,7 +8,7 @@ const MenuButton = () => {
     return ( 
         <Button 
                 style={[globalStyles.button, {backgroundColor: '#dc143c'}]} 
-                mode="outlined"
+                mode="contained"
                 onPress={() => navigation.navigate('Menu')}
             >
                 <Text style={[globalStyles.buttonText, {color: '#fff', fontSize: 16}]}>📋 Menu</Text>
