@@ -4,6 +4,7 @@ import { Button, List } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import OrderContext from '../contexts/orders/orderContext';
 import globalStyles from '../styles/global';
+import firebase from '../firebase'
 
 const OrderSummary = () => {
 
@@ -26,8 +27,20 @@ const OrderSummary = () => {
             [
                 {
                     text: 'Confirm',
-                    onPress: () => {
-                        navigation.navigate('OrderProgress')
+                    onPress: async () => {
+                        const orderObj = {
+                            deliveryTime: 0,
+                            isDone: false,
+                            total: Number(total),
+                            order: orders,
+                            createdAt: Date.now()
+                        }
+                        try {
+                            const sendOrderFirebase = await firebase.db.collection('orders').add(orderObj);
+                        } catch (error) {
+                            console.error(error);
+                        }
+                        // navigation.navigate('OrderProgress')
                     }
                 },
                 {
