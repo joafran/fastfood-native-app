@@ -14,6 +14,8 @@ import OrderProgress from './screens/OrderProgress'
 import FirebaseState from './contexts/firebase/firebaseState.js';
 import OrderState from './contexts/orders/orderState';
 
+import SummaryButton from './components/ui/SummaryButton';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -45,7 +47,8 @@ const App = () => {
                 name="Menu"
                 component={Menu}
                 options={{
-                  title: "Menu"
+                  title: "Menu",
+                  headerRight: props => <SummaryButton />
                 }}
                 />
               <Stack.Screen 

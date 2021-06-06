@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { CONFIRM_ORDER, SELECT_MEAL } from '../../types';
+import { CONFIRM_ORDER, SELECT_MEAL, SHOW_TOTAL } from '../../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
 
@@ -7,7 +7,8 @@ const OrderState = ({children}) => {
     
     const initialState = {
         orders: [],
-        meal: null
+        meal: null,
+        total: 0
     }
 
     const [state, dispatch] = useReducer(orderReducer, initialState);
@@ -26,12 +27,21 @@ const OrderState = ({children}) => {
         })
     }
 
+    const showTotal = (total) => {
+        dispatch({
+            type: SHOW_TOTAL,
+            payload: total
+        })
+    }
+
     return (
         <OrderContext.Provider
         value={{
             orders: state.orders,
             meal: state.meal,
+            total: state.total,
             selectMeal,
+            showTotal,
             confirmOrder
         }}
         >

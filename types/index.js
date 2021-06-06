@@ -3,3 +3,5 @@ export const GET_MENU_SUCCESS = 'GET_MENU_SUCCESS'
 export const SELECT_MEAL = 'SELECT_MEAL'
 
 export const CONFIRM_ORDER = 'CONFIRM_ORDER'
+
+export const SHOW_TOTAL = 'SHOW_TOTAL'

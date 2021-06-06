@@ -1,4 +1,4 @@
-import { CONFIRM_ORDER, SELECT_MEAL } from "../../types";
+import { CONFIRM_ORDER, SELECT_MEAL, SHOW_TOTAL } from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -14,6 +14,12 @@ export default (state, action) => {
                 orders: [...state.orders, action.payload]
             }
 
+        case SHOW_TOTAL:
+            return {
+                ...state,
+                total: action.payload
+            }
+                
         default:
             return state;
     }
