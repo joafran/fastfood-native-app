@@ -1,4 +1,4 @@
-import { CONFIRM_ORDER, REMOVE_ORDER, SELECT_MEAL, SHOW_TOTAL } from "../../types";
+import { CONFIRM_ORDER, ORDER_SENT, REMOVE_ORDER, SELECT_MEAL, SHOW_TOTAL } from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -26,7 +26,12 @@ export default (state, action) => {
                 orders: state.orders.filter( order => order.id !== action.payload)
             }
                 
-
+        case ORDER_SENT:
+            return {
+                ...state,
+                orderId: action.payload
+            }
+    
         default:
             return state;
     }

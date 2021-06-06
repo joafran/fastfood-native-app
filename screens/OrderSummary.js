@@ -8,7 +8,7 @@ import firebase from '../firebase'
 
 const OrderSummary = () => {
 
-    const { orders, total, showTotal, deleteOrder } = useContext(OrderContext);
+    const { orders, total, showTotal, deleteOrder, orderSent } = useContext(OrderContext);
     const navigation = useNavigation();
     useEffect(() => {
         calculateTotal();
@@ -36,11 +36,12 @@ const OrderSummary = () => {
                             createdAt: Date.now()
                         }
                         try {
-                            const sendOrderFirebase = await firebase.db.collection('orders').add(orderObj);
+                            const orderFirebase = await firebase.db.collection('orders').add(orderObj);
+                            orderSent(orderFirebase.id);
+                            navigation.navigate('OrderProgress')
                         } catch (error) {
                             console.error(error);
                         }
-                        // navigation.navigate('OrderProgress')
                     }
                 },
                 {

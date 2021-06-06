@@ -1,5 +1,11 @@
 import React, { useReducer } from 'react';
-import { CONFIRM_ORDER, REMOVE_ORDER, SELECT_MEAL, SHOW_TOTAL } from '../../types';
+import { 
+    CONFIRM_ORDER, 
+    REMOVE_ORDER, 
+    SELECT_MEAL, 
+    SHOW_TOTAL, 
+    ORDER_SENT 
+} from '../../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
 
@@ -8,6 +14,7 @@ const OrderState = ({children}) => {
     const initialState = {
         orders: [],
         meal: null,
+        orderId: '',
         total: 0
     }
 
@@ -41,16 +48,25 @@ const OrderState = ({children}) => {
         })
     }
 
+    const orderSent = (id) => {
+        dispatch({
+            type: ORDER_SENT,
+            payload: id
+        });
+    }
+
     return (
         <OrderContext.Provider
         value={{
             orders: state.orders,
             meal: state.meal,
+            orderId: state.orderId,
             total: state.total,
             selectMeal,
             showTotal,
             confirmOrder,
-            deleteOrder
+            deleteOrder,
+            orderSent
         }}
         >
             {children}
