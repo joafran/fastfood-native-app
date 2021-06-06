@@ -7,7 +7,7 @@ import globalStyles from '../styles/global';
 
 const OrderSummary = () => {
 
-    const { orders, total, showTotal } = useContext(OrderContext);
+    const { orders, total, showTotal, deleteOrder } = useContext(OrderContext);
     const navigation = useNavigation();
     useEffect(() => {
         calculateTotal();
@@ -18,10 +18,53 @@ const OrderSummary = () => {
         newTotal = orders.reduce( (newTotal, order) => newTotal + order.total, 0);
         showTotal(newTotal);
     }
+    
+    const sendOrders = () => {
+        Alert.alert(
+            'Confirm your order',
+            `Total: $${total}`,
+            [
+                {
+                    text: 'Confirm',
+                    onPress: () => {
+                        navigation.navigate('OrderProgress')
+                    }
+                },
+                {
+                    text: 'Go to menu',
+                    onPress: () => navigation.navigate('Menu')
+                },
+                {
+                    text: 'Cancel',
+                    style: 'cancel'
+                }
+            ]
+            )
+        }
 
-    return ( 
-        <View style={[globalStyles.container, {justifyContent: 'space-between'}]}>
+        const removeOrder = (id, name) => {
+            Alert.alert(
+                'Do you want to remove this order?',
+                `${name}`,
+                [
+                    {
+                        text: 'Confirm',
+                        onPress: () => {
+                            deleteOrder(id);
+                        }
+                    },
+                    {
+                        text: 'Cancel',
+                        style: 'cancel'
+                    }
+                ]
+                )
+        }
+        
+        return ( 
+            <View style={[globalStyles.container, {justifyContent: 'space-between'}]}>
             <Text style={styles.banner}>Your orders</Text>
+            <ScrollView>
             {(orders.length) ? (
                 orders.map( (meal, i) => {
                     const { name, quantity, image, id, price } = meal;
@@ -34,6 +77,15 @@ const OrderSummary = () => {
                             titleStyle={styles.title}
                             description={`Quantity: ${quantity} \nPrice: $${price}`}
                             descriptionStyle={styles.description}
+                            right={ () => (
+                                <Button 
+                                style={[globalStyles.button, {height: 40}]} 
+                                mode="contained"
+                                onPress={() => removeOrder(id, name)}
+                                >
+                                    Remove
+                                </Button>
+                            )}
                             left={ () =>  <Image style={styles.image} source={{uri: image}}/>}
                             />
                     </View>
@@ -47,19 +99,13 @@ const OrderSummary = () => {
                 </View>
                 ) 
             }
+            </ScrollView>
             <Text style={styles.banner}>Total to pay: ${total}</Text>
-            <Button 
-                style={[globalStyles.button, {width: '80%', alignSelf: 'center', padding: 5}]} 
-                mode="contained"
-                onPress={() => navigation.navigate('Menu')}
-            >
-                <Text style={globalStyles.buttonText}>Go to menu</Text>
-            </Button>
             <View >
                 <Button 
-                    style={[globalStyles.button, {width: '100%', padding: 5}]} 
+                    style={[globalStyles.button, {width: '100%', padding: 5, borderRadius: 0}]} 
                     mode="contained"
-                    onPress={() => navigation.navigate('Menu')}
+                    onPress={() => sendOrders()}
                 >
                     <Text style={globalStyles.buttonText}>Done</Text>
                 </Button>

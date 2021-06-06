@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { CONFIRM_ORDER, SELECT_MEAL, SHOW_TOTAL } from '../../types';
+import { CONFIRM_ORDER, REMOVE_ORDER, SELECT_MEAL, SHOW_TOTAL } from '../../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
 
@@ -34,6 +34,13 @@ const OrderState = ({children}) => {
         })
     }
 
+    const deleteOrder = (id) => {
+        dispatch({
+            type: REMOVE_ORDER,
+            payload: id
+        })
+    }
+
     return (
         <OrderContext.Provider
         value={{
@@ -42,7 +49,8 @@ const OrderState = ({children}) => {
             total: state.total,
             selectMeal,
             showTotal,
-            confirmOrder
+            confirmOrder,
+            deleteOrder
         }}
         >
             {children}
