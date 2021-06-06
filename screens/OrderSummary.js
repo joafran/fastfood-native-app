@@ -31,10 +31,6 @@ const OrderSummary = () => {
                     }
                 },
                 {
-                    text: 'Go to menu',
-                    onPress: () => navigation.navigate('Menu')
-                },
-                {
                     text: 'Cancel',
                     style: 'cancel'
                 }
