@@ -39,7 +39,6 @@ const Menu = () => {
     }
 
     return (
-        <>
             <ScrollView>
                 {(menu.length) ? (
                     menu.map( (option, idx) => {
@@ -64,10 +63,9 @@ const Menu = () => {
 
                     );
                     })
-                    ) : <ActivityIndicator color="#dc143c" size="large"></ActivityIndicator> 
+                    ) : <ActivityIndicator style={{marginTop: 150}} color="#dc143c" size="large"></ActivityIndicator> 
                 }
             </ScrollView>
-        </>
      );
 }
 

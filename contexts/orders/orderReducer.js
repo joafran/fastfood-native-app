@@ -29,6 +29,8 @@ export default (state, action) => {
         case ORDER_SENT:
             return {
                 ...state,
+                orders: [],
+                total: 0,
                 orderId: action.payload
             }
     

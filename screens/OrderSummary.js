@@ -21,6 +21,7 @@ const OrderSummary = () => {
     }
     
     const sendOrders = () => {
+        if(!orders.length) return null;
         Alert.alert(
             'Confirm your order',
             `Total: $${total}`,
@@ -73,7 +74,6 @@ const OrderSummary = () => {
         
         return ( 
             <View style={[globalStyles.container, {justifyContent: 'space-between'}]}>
-            <Text style={styles.banner}>Your orders</Text>
             <ScrollView>
             {(orders.length) ? (
                 orders.map( (meal, i) => {
@@ -89,7 +89,7 @@ const OrderSummary = () => {
                             descriptionStyle={styles.description}
                             right={ () => (
                                 <Button 
-                                style={[globalStyles.button, {height: 40}]} 
+                                style={[globalStyles.button, {height: 40, backgroundColor: '#1F2937'}]} 
                                 mode="contained"
                                 onPress={() => removeOrder(id, name)}
                                 >
