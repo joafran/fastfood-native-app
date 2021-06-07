@@ -15,7 +15,7 @@ const MealDetail = () => {
         <View style={[globalStyles.container, styles.container]}>
             <Card>
                 <Card.Cover style={globalStyles.image} source={{uri: image}} />
-                <Card.Content style={{backgroundColor: '#fafad2'}}>
+                <Card.Content style={{backgroundColor: '#eee'}}>
                     <Card.Title titleStyle={styles.title} title={name} right={() => <Text style={[styles.title, styles.price]}>Price: ${price}</Text>} />
                     <Paragraph style={styles.description}>{description}</Paragraph>
                 </Card.Content>
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
         color: '#DC143C'
     },
     description: {
-        fontSize: 17,
+        fontSize: 20,
+        lineHeight: 30,
         backgroundColor: '#dc143c',
         padding: 10,
         borderRadius: 5,
