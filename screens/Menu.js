@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Animated, Image, ScrollView, StyleSheet, View } from 'react-native';
 import globalStyles from '../styles/global';
 
 import { useNavigation } from '@react-navigation/native'
@@ -13,8 +13,16 @@ const Menu = () => {
     const navigation = useNavigation();
     const { menu, getMenu } = useContext(FirebaseContext);
     const { selectMeal } = useContext(OrderContext);
+    const [animation] = useState(new Animated.Value(0));
     
     useEffect(() => {
+        Animated.timing(
+            animation, {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true
+            }
+        ).start();
         getMenu();
     }, []);
 
@@ -39,6 +47,7 @@ const Menu = () => {
     }
 
     return (
+        <Animated.View style={{opacity: animation}}>
             <ScrollView>
                 {(menu.length) ? (
                     menu.map( (option, idx) => {
@@ -67,6 +76,7 @@ const Menu = () => {
                     ) : <ActivityIndicator style={{marginTop: 150}} color="#dc143c" size="large"></ActivityIndicator> 
                 }
             </ScrollView>
+        </Animated.View>
      );
 }
 
