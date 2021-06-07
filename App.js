@@ -41,7 +41,7 @@ const App = () => {
                 name="NewOrder"
                 component={NewOrder}
                 options={{
-                  title: "New Order"
+                  title: "Fast Food"
                 }}
                 />
               <Stack.Screen 

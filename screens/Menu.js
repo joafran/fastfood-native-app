@@ -56,9 +56,10 @@ const Menu = () => {
                                 titleStyle={styles.title}
                                 description={description}
                                 descriptionStyle={styles.description}
+                                right={() => <Text style={styles.price}>$ {price}</Text>}
                                 left={ () =>  <Image style={styles.image} source={{uri: image}}/>}
                                 />
-                                <Text style={styles.price}>$ {price}</Text>
+                                
                         </View>
 
                     );
@@ -100,11 +101,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffd700',
         color: '#000',
         width: 60,
+        height: 40,
         textAlign: 'center',
+        marginVertical: 20,
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderRadius: 15,
-        marginHorizontal: 20
     }
 });
  

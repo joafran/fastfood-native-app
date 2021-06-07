@@ -11,7 +11,7 @@ const SummaryButton = () => {
     if(!orders.length) return null;
     return ( 
         <Button 
-                style={[globalStyles.button]} 
+                style={[globalStyles.button, {borderColor: '#1f2937', borderWidth: 2, marginRight: 5}]} 
                 mode="contained"
                 onPress={() => navigation.navigate('OrderSummary')}
             >
