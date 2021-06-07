@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper'
 import globalStyles from '../styles/global';
 import OrderContext from '../contexts/orders/orderContext';
 import { useNavigation } from '@react-navigation/native'
 import firebase from '../firebase'
+import CircleTimer from '../components/ui/CircleTimer';
 
 const OrderProgress = () => {
     const navigation = useNavigation();
@@ -38,15 +39,17 @@ const OrderProgress = () => {
                 {(!isDone && time > 0) && (
                     <>
                     <View>
-                        <Text style={{fontSize: 20}}>Your order will be ready in {time} minutes</Text>
+                        <Text style={styles.waitingText}>Your order will be ready in</Text>
+                        <CircleTimer time={time * 60} />
                     </View>
                     </>
                 )}
                 {isDone && (
                     <>
-                        <View>
-                            <Text>Your order is ready!</Text>
-                            <Text>Please come to the restaurant to take your order.</Text>
+                        <View style={{alignItems: 'center'}}>
+                            <Text style={styles.successText}>Your order is ready!</Text>
+                            <Image style={{width: 400, height: 380}} source={require('../assets/ready.png')} />
+                            <Text style={styles.successText}>Please come to the restaurant to take your order.</Text>
                         </View>
                         <Button 
                          color='#ffda00' 
@@ -61,5 +64,25 @@ const OrderProgress = () => {
         </View>
      );
 }
+
+const styles = StyleSheet.create({
+    waitingText: {
+        fontSize: 20, 
+        textAlign: 'center', 
+        marginBottom: 20,
+        backgroundColor: '#1F2937',
+        padding: 15,
+        fontWeight: 'bold',
+        color: '#fff'
+    },
+    successText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 10,
+        backgroundColor: '#dc143c',
+        color: '#fff',
+        marginVertical: 10,
+    }
+})
  
 export default OrderProgress;
